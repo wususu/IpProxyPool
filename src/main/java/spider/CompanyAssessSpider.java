@@ -1,6 +1,7 @@
 package spider;
 
 
+import spider.pipeline.AssessPipeline;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
@@ -17,8 +18,10 @@ public class CompanyAssessSpider implements PageProcessor{
 	@Override
 	public void process(Page page) {
 		// TODO Auto-generated method stub
-		String html = page.getHtml().css("div  >  span.cil_perc").get();
-		System.out.println(html);
+		String html = page.getHtml().css("div  >  span.cil_perc", "text").get();
+		if (html != null) {
+			page.putField("percentage", html);
+		}
 	}
 
 	@Override
@@ -29,7 +32,6 @@ public class CompanyAssessSpider implements PageProcessor{
 	
 	public static void run(String companyCode){
 		String url = originUrl + companyCode + ".html";
-		Spider.create(new CompanyAssessSpider()).addUrl(url).run(); 
+		Spider.create(new CompanyAssessSpider()).addPipeline(new AssessPipeline(companyCode)).addUrl(url).start();; 
 	}
-
 }

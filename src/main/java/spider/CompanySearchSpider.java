@@ -4,9 +4,14 @@ import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
+
+import spider.pipeline.SearchPipeline;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
+import us.codecraft.webmagic.model.OOSpider;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 
@@ -20,13 +25,10 @@ public class CompanySearchSpider implements PageProcessor{
 	@Override
 	public void process(Page page){
 		String html = page.getJson().toString();
-		System.out.println(html);
 		JSONObject json = new JSONObject(html);
 		JSONArray company =json.getJSONArray("suggestions");
-		Iterator<Object> iterator = company.iterator();
-		while (iterator.hasNext()) {
-			JSONObject object = (JSONObject) iterator.next();
-			System.out.println(object.getString("data")+"  "+object.getString("value")+ "  " +object.getString("hlvalue") +"  "+object.getString("type"));
+		if (company.length() > 0) {
+			page.putField("companys",company);
 		}
 	}
 
@@ -38,7 +40,7 @@ public class CompanySearchSpider implements PageProcessor{
 	
 	public static void run(String value){
 		String url = originUrl+ value + "&type=2";
-		Spider.create(new CompanySearchSpider()).addUrl(url).run();
+		Spider.create(new CompanySearchSpider()).addPipeline(new SearchPipeline()).addUrl(url).start();
 	}
 	
 	public static void main() {

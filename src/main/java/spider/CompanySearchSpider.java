@@ -1,17 +1,13 @@
 package spider;
 
-import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-import com.fasterxml.jackson.annotation.JsonTypeInfo.Id;
 
 import spider.pipeline.SearchPipeline;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.Spider;
-import us.codecraft.webmagic.model.OOSpider;
 import us.codecraft.webmagic.processor.PageProcessor;
 
 

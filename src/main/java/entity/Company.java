@@ -33,6 +33,15 @@ public class Company implements Serializable{
 	@Column(name="company_assess")
 	private Double companyAccess;
 	
+	public Company(){
+		
+	}
+	
+	public Company(String companyName, String companyKey) {
+		this.companyName = companyName;
+		this.companyKey = companyKey;
+	}
+	
 	public void setId(Integer id){
 		this.id = id;
 	}

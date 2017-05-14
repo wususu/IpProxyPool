@@ -1,22 +1,22 @@
 package spider;
 
-
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.stereotype.Component;
 
-import spider.pipeline.SearchPipeline;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
-import us.codecraft.webmagic.Spider;
 import us.codecraft.webmagic.processor.PageProcessor;
 
-
+/**
+ * the spider to get the search result of companys data from the internate by companyName
+ * 
+ *@author janke
+ */
+@Component
 public class CompanySearchSpider implements PageProcessor{
 	
 	private Site site = Site.me().setCharset("utf8").setRetryTimes(3).addHeader("Accept", "application/json, text/javascript, */*; q=0.01").addHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
-	
-	private static final String originUrl = "http://www.kanzhun.com/autocomplete/searchkey.json?query=";
-	
 	
 	@Override
 	public void process(Page page){
@@ -33,14 +33,4 @@ public class CompanySearchSpider implements PageProcessor{
 		// TODO Auto-generated method stub
 		return site;
 	}
-	
-	public static void run(String value){
-		String url = originUrl+ value + "&type=2";
-		Spider.create(new CompanySearchSpider()).addPipeline(new SearchPipeline()).addUrl(url).start();
-	}
-	
-	public static void main() {
-		run("网易");
-	}
-
 }

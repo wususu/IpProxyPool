@@ -1,20 +1,31 @@
-package spider.pipeline;
+package pipeline;
 
 import java.util.Iterator;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-import dao.CompanyDao;
 import entity.Company;
-
+import service.CompanyService;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
 
+
+/**
+ * handle data from the CompanySearchSpider
+ * 
+ * @author janke
+ */
+@Component
 public class SearchPipeline implements Pipeline{
 	
-	private CompanyDao companyDao = new CompanyDao();
+	@Autowired
+	@Qualifier("companyServiceImpl")
+	private CompanyService companyService;
 
 	@Override
 	public void process(ResultItems resultItems, Task task) {
@@ -27,11 +38,10 @@ public class SearchPipeline implements Pipeline{
 				Integer key = object.getInt("data");
 				String name = object.getString("value");
 				if (name != null && key.toString() != null ) {
-//					System.out.println(name + "  " +key);
-					companyDao.add(new Company(name, key.toString()));
+					companyService.add(new Company(name, key.toString()));
 				}
 			}
-			companyDao.destroy();
 		}
+
 	}
 }

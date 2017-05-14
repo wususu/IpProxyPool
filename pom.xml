@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>project-entRisk</groupId>
-	<artifactId>project-entRisk</artifactId>
+	<groupId>project-entpRisk</groupId>
+	<artifactId>project-entpRisk</artifactId>
 	<packaging>war</packaging>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>project-entRisk Maven Webapp</name>
+	<name>project-entpRisk Maven Webapp</name>
 	<url>http://maven.apache.org</url>
 	<properties>
 		<spring.version>4.2.3.RELEASE</spring.version>
@@ -124,7 +124,7 @@
 
 
 	<build>
-		<finalName>project-entRisk</finalName>
+		<finalName>project-entpRisk</finalName>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>

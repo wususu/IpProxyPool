@@ -1,30 +1,45 @@
 package controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import dao.CompanyDao;
-import spider.CompanyAssessSpider;
-import spider.CompanySearchSpider;
 
+import service.CompanyService;
+import spider.IndexSpider;
+
+/**
+ * the controller for code test
+ * 
+ * @author janke
+ */
 @Controller
 @RequestMapping(value="/test")
 public class TestController {
-
 	
-	@RequestMapping(value="/sql")
-	public void testHbernate(){
-		CompanyDao aa = new CompanyDao();
-		System.out.println(aa.get(1));
+	@Autowired
+	IndexSpider IndexSpider;
+	
+	@Autowired
+	@Qualifier("companyServiceImpl")
+	private CompanyService companyService;
+	
+	@RequestMapping(value="/bean")
+	@ResponseBody
+	public Object TTCCLayout(){
+		System.out.println(companyService);
+		System.out.println(companyService.getCompanyDao());
+		return companyService.get(1);
 	}
 	
 	@RequestMapping(value="/spider/company/{name}")
 	@ResponseBody
 	public Object testCompanySearchSprider(@PathVariable String name){
 		if (!name.isEmpty()) {
-			CompanySearchSpider.run(name);
+			IndexSpider.runCompanySearchSpider(name);
 		}
 		return null;
 	}
@@ -33,9 +48,11 @@ public class TestController {
 	@ResponseBody
 	public Object testCompanyAssessSpider(@PathVariable Integer key){
 		if (key != null) {
-			CompanyAssessSpider.run(key.toString());
+			IndexSpider.runCompanyAssessSpider(key.toString());
 		}
 		return null;
 	}
+	
+	
 	
 }

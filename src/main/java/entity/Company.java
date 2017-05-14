@@ -10,8 +10,11 @@ import javax.persistence.Table;
 
 import org.hibernate.annotations.GenericGenerator;
 
-import javassist.SerialVersionUID;
-
+/**
+ * company entity
+ * 
+ * @author janke
+ */
 @Entity
 @Table(name="company")
 public class Company implements Serializable{

@@ -11,6 +11,7 @@ public class BaseDaoHibernate5<T> implements BaseDao<T>{
 	@Autowired
 	private SessionFactory sessionFactory;
 
+	@SuppressWarnings("unchecked")
 	public T get(Class<T> entity, int id) {
 		Session session = sessionFactory.getCurrentSession();
 		Serializable object = (Serializable)session.get(entity, id);
@@ -22,8 +23,6 @@ public class BaseDaoHibernate5<T> implements BaseDao<T>{
 		Serializable object = (Serializable)session.save(entity);
 		return object;
 	}
-
-
 
 	public void update(T entity) {
 		Session session = sessionFactory.getCurrentSession();

@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import entity.Company;
 
 /**
@@ -10,4 +12,6 @@ import entity.Company;
 public interface CompanyDao extends BaseDao<Company>{
 	
 	public Company get(String companyKey);
+		
+	public List<Company> getCompanys(String companyName);
 }

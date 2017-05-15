@@ -21,7 +21,7 @@ import us.codecraft.webmagic.pipeline.Pipeline;
  * @author janke
  */
 @Component
-public class SearchPipeline implements Pipeline{
+public class SearchPipeLine implements Pipeline{
 	
 	@Autowired
 	@Qualifier("companyServiceImpl")

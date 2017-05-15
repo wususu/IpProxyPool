@@ -1,5 +1,6 @@
 package spider;
 
+import org.hibernate.engine.spi.SelfDirtinessTracker;
 import org.springframework.stereotype.Component;
 
 import us.codecraft.webmagic.Page;

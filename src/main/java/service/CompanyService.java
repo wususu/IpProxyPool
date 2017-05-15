@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import dao.CompanyDao;
@@ -21,5 +23,6 @@ public interface CompanyService {
 	
 	public void add(Company company);
 	
-	public CompanyDao getCompanyDao();
+	public List<Company> getCompanys(String companyName);
+	
 }

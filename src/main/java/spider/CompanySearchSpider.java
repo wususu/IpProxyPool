@@ -20,6 +20,7 @@ public class CompanySearchSpider implements PageProcessor{
 	
 	@Override
 	public void process(Page page){
+		System.out.println(4);
 		String html = page.getJson().toString();
 		JSONObject json = new JSONObject(html);
 		JSONArray company =json.getJSONArray("suggestions");

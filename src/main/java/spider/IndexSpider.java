@@ -3,8 +3,8 @@ package spider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import pipeline.AssessPipeline;
-import pipeline.SearchPipeline;
+import pipeline.AssessPipeLine;
+import pipeline.SearchPipeLine;
 import us.codecraft.webmagic.Spider;
 
 /**
@@ -22,21 +22,25 @@ public class IndexSpider {
 	private CompanyAssessSpider companyAssessSpider;
 	
 	@Autowired
-	private SearchPipeline searchPipeline;
+	private SearchPipeLine searchPipeLine;
 	
 	@Autowired
-	private AssessPipeline assessPipeline;
+	private AssessPipeLine assessPipeLine;
 	
-	private static final String companyAssessOriginUrl = "http://www.kanzhun.com/gso";
+	private static final String companyAssessOriginUrlHead = "http://www.kanzhun.com/gso";
 	
-	private static final String companySearchOriginUrl = "http://www.kanzhun.com/autocomplete/searchkey.json?query=";
+	private static final String companySearchOriginUrlTail = "&type=2";
+	
+	private static final String companySearchOriginUrlHead = "http://www.kanzhun.com/autocomplete/searchkey.json?query=";
+	
+	private static final String companyAssessOriginUrlTail = ".html";
 	
 	private String companyAssessUrl;
 	
 	private String companySearchUrl;
 	
 	public void  setCompanySearchUrl(String companyName) {
-		this.companySearchUrl = companySearchOriginUrl + companyName + "&type=2";
+		this.companySearchUrl = companySearchOriginUrlHead + companyName + companySearchOriginUrlTail;
 	}
 	
 	public String getCompanySearchUrl() {
@@ -48,17 +52,17 @@ public class IndexSpider {
 	}
 	
 	public void setCompanyAssessUrl(String companyKey) {
-		this.companyAssessUrl = companyAssessOriginUrl + companyKey + ".html";
+		this.companyAssessUrl = companyAssessOriginUrlHead + companyKey + companyAssessOriginUrlTail;
 	}
 	
 	public void  runCompanySearchSpider(String companyName) {
 		setCompanySearchUrl(companyName);
-		Spider.create(companySearchSpider).addPipeline(searchPipeline).addUrl(getCompanySearchUrl()).start();
+		Spider.create(companySearchSpider).addPipeline(searchPipeLine).addUrl(getCompanySearchUrl()).start();
 	}
 	
 	public void runCompanyAssessSpider(String companyKey){
 		setCompanyAssessUrl(companyKey);
-		assessPipeline.setCompanyKey(companyKey);
-		Spider.create(companyAssessSpider).addPipeline(assessPipeline).addUrl(getCompanyAssessUrl()).start(); 
+		assessPipeLine.setCompanyKey(companyKey);
+		Spider.create(companyAssessSpider).addPipeline(assessPipeLine).addUrl(getCompanyAssessUrl()).start(); 
 	}
 }

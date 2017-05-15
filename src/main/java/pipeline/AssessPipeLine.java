@@ -15,7 +15,7 @@ import us.codecraft.webmagic.pipeline.Pipeline;
  * @author janke
  */
 @Component
-public class AssessPipeline implements Pipeline{
+public class AssessPipeLine implements Pipeline{
 	
 	@Autowired
 	private CompanyService companyService;

@@ -1,5 +1,7 @@
 package dao;
 
+import java.util.List;
+
 import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -25,5 +27,13 @@ public class CompanyDaoImpl extends BaseDaoHibernate5<Company> implements Compan
 		 Criteria criteria= session.createCriteria(Company.class).add(Restrictions.eq("companyKey", companyKey));
 		Company company= (Company)criteria.uniqueResult();
 		return company;
+	}
+	
+	public List<Company> getCompanys(String companyName) {
+		Session session = sessionFactory.getCurrentSession();
+		Criteria criteria = session.createCriteria(Company.class).add(Restrictions.ilike("companyName","%"+ companyName + "%"));
+		@SuppressWarnings("unchecked")
+		List<Company> companys = (List<Company>)criteria.list();
+		return companys;
 	}
 }

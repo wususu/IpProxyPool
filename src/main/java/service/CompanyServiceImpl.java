@@ -1,5 +1,7 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
@@ -36,9 +38,9 @@ public class CompanyServiceImpl implements CompanyService{
 	public void add(Company company){
 		companyDao.save(company);
 	}
-	
-	public CompanyDao getCompanyDao(){
-		return companyDao;
-	}
 
+	public List<Company> getCompanys(String companyName){
+		return companyDao.getCompanys(companyName);
+	}
+	
 }

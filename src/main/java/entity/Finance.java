@@ -1,5 +1,10 @@
 package entity;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Company Finance Entity
  * 
@@ -7,19 +12,19 @@ package entity;
  */
 public class Finance {
 	
-	private static final Double b0 = 2.329;
+	public static final Double B0 = 2.329;
 	
-	private static final Double inventoryTurnoverWeight = 0.249;
+	public static final Double InventoryTurnoverWeight = 0.249;
 	
-	private static final Double  netAssetsIncomeWeight = -2.629;
+	public static final Double  NetAssetsIncomeWeight = -2.629;
 
-	private static final Double netProfitWeight = -21.231;
+	public static final Double NetProfitWeight = -21.231;
 	
-	private static final Double netProfitIncreaseWeight1 = 2.649;
+	public static final Double NetProfitIncreaseWeight1 = 2.649;
 	
-	private static final Double netProfitIncreaseWeight2 = 0.203;
+	public static final Double NetProfitIncreaseWeight2 = 0.203;
 	
-	private static final Double totalAssetsIncreaseWeight = 0.656;
+	public static final Double TotalAssetsIncreaseWeight = 0.656;
 	
 	private Double inventoryTurnover;
 	
@@ -84,32 +89,4 @@ public class Finance {
 	public void setTotalAssetsIncrease(Double totalAssetsIncrease) {
 		this.totalAssetsIncrease = totalAssetsIncrease;
 	}
-
-	public static Double getB0() {
-		return b0;
-	}
-
-	public static Double getInventoryturnoverweight() {
-		return inventoryTurnoverWeight;
-	}
-
-	public static Double getNetassetsincomeweight() {
-		return netAssetsIncomeWeight;
-	}
-
-	public static Double getNetprofitweight() {
-		return netProfitWeight;
-	}
-
-	public static Double getNetprofitincreaseweight1() {
-		return netProfitIncreaseWeight1;
-	}
-
-	public static Double getNetprofitincreaseweight2() {
-		return netProfitIncreaseWeight2;
-	}
-
-	public static Double getTotalassetsincreaseweight() {
-		return totalAssetsIncreaseWeight;
-	}	
 }

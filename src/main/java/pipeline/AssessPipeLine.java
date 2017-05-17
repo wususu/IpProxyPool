@@ -42,6 +42,7 @@ public class AssessPipeLine implements Pipeline{
 	
 	public void process(ResultItems resultItems, Task task){
 		String percentage = resultItems.get("percentage");
+		System.out.println(percentage);
 		Company company = companyService.get(companyKey);
 		if (company != null && !percentage.isEmpty()) {
 			Double percentageDouble = getPercentageDouble(percentage);

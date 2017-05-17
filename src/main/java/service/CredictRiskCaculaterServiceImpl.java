@@ -1,9 +1,6 @@
 package service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -31,6 +28,7 @@ public class CredictRiskCaculaterServiceImpl implements CredictRiskCaculaterServ
 	@Qualifier("financialServiceImpl")
 	private FinancialService financialService;
 	
+	@Override
 	public void caculater(Finance finance, Company company, LegalEvaluation legalEvaluation){
 		credictRisk.setCompany(company);
 		credictRisk.setFinance(finance);
@@ -57,6 +55,7 @@ public class CredictRiskCaculaterServiceImpl implements CredictRiskCaculaterServ
 		return financialRisk;
 	}
 	
+	@Override
 	public  Double caculate() {
 		Double financialRisk = financialCaculater(zCaculater());
 		Double netWorkRisk = credictRisk.getCompany().getCompanyAssess();

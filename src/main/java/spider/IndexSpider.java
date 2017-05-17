@@ -1,5 +1,6 @@
 package spider;
 
+import org.apache.http.HttpHost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -63,6 +64,7 @@ public class IndexSpider {
 	public void runCompanyAssessSpider(String companyKey){
 		setCompanyAssessUrl(companyKey);
 		assessPipeLine.setCompanyKey(companyKey);
+		HttpHost hoString  = companyAssessSpider.getSite().getHttpProxy();
 		Spider.create(companyAssessSpider).addPipeline(assessPipeLine).addUrl(getCompanyAssessUrl()).start(); 
 	}
 }

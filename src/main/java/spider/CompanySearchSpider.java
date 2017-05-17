@@ -1,5 +1,6 @@
 package spider;
 
+import org.apache.http.HttpHost;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;
@@ -16,11 +17,11 @@ import us.codecraft.webmagic.processor.PageProcessor;
 @Component
 public class CompanySearchSpider implements PageProcessor{
 	
-	private Site site = Site.me().setCharset("utf8").setRetryTimes(3).addHeader("Accept", "application/json, text/javascript, */*; q=0.01").addHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
+	private Site site = Site.me().setCharset("utf8").setRetryTimes(3).setTimeOut(3000).addHeader("Accept", "application/json, text/javascript, */*; q=0.01").addHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36").setHttpProxy(new HttpHost("127.0.0.1", 1080));
 	
 	@Override
 	public void process(Page page){
-		System.out.println(4);
+		System.out.println(page.getRequest() +" " +page.getStatusCode());
 		String html = page.getJson().toString();
 		JSONObject json = new JSONObject(html);
 		JSONArray company =json.getJSONArray("suggestions");

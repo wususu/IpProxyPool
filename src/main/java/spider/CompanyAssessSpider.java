@@ -1,8 +1,10 @@
 package spider;
 
+import org.apache.http.HttpHost;
 import org.hibernate.engine.spi.SelfDirtinessTracker;
 import org.springframework.stereotype.Component;
 
+import javassist.expr.NewArray;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;
@@ -15,10 +17,11 @@ import us.codecraft.webmagic.processor.PageProcessor;
 @Component
 public class CompanyAssessSpider implements PageProcessor{
 	
-	private Site site = Site.me().setCharset("utf8").setRetryTimes(3).addHeader("Accept", "application/json, text/javascript, */*; q=0.01").addHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
+	private Site site = Site.me().setCharset("utf8").setTimeOut(30000).setRetryTimes(3).addHeader("Accept", "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8").addHeader("User-Agent", "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
 	
 	@Override
 	public void process(Page page) {
+		System.out.println(page.getStatusCode());
 		// TODO Auto-generated method stub
 		String html = page.getHtml().css("div  >  span.cil_perc", "text").get();
 		if (html != null) {
@@ -29,6 +32,6 @@ public class CompanyAssessSpider implements PageProcessor{
 	@Override
 	public Site getSite() {
 		// TODO Auto-generated method stub
-		return site;
+		return site.setHttpProxy(new HttpHost("221.221.221.222", 9999));
 	}
 }

@@ -1,51 +1,68 @@
 package entity;
 
-public class Cache {
+public class Cache<T> {
 	
-	private String key;
-	
-	private Object value;
+	private int id;
+																																																																																													
+	private T value;
 	
 	private Integer weight;
 	
-	private long timeOut;
+	private boolean quit;
 	
-	private boolean expired;
+	private boolean checked;
 	
-	public Cache(String key, Object value, long timeOut, Boolean expired) {
+	public Cache() {
 		// TODO Auto-generated constructor stub
-		
+	}
+	
+	public Cache(T value) {
+		// TODO Auto-generated constructor stub
+		this.setId(id);
+		this.value = value;
+		this.setQuit(false);
+		this.checked = false;
+		this.weight = 0;
 	}
 
-	public String getKey() {
-		return key;
-	}
-
-	public void setKey(String key) {
-		this.key = key;
-	}
-
-	public Object getValue() {
+	
+	public T getValue() {
 		return value;
 	}
 
-	public void setValue(Object value) {
+	public void setValue(T value) {
 		this.value = value;
 	}
 
-	public long getTimeOut() {
-		return timeOut;
+	public Integer getWeight() {
+		return weight;
 	}
 
-	public void setTimeOut(long timeOut) {
-		this.timeOut = timeOut;
+	public void setWeight(Integer weight) {
+		this.weight = weight;
 	}
 
-	public boolean isExpired() {
-		return expired;
+	public boolean isChecked() {
+		return checked;
 	}
 
-	public void setExpired(boolean expired) {
-		this.expired = expired;
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+
+	public boolean isQuit() {
+		return quit;
+	}
+
+	public void setQuit(boolean quit) {
+		this.quit = quit;
+	}
+
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 }

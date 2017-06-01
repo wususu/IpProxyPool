@@ -6,10 +6,11 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.web.servlet.FlashMap;
 
 import entity.Cache;
 import entity.Proxy;
-import service.ProxyCacheService;
+import service.ProxyTempCacheService;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -23,23 +24,31 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 public class ProxySpiderPipeLine implements Pipeline{
 
 	@Autowired
-	private ProxyCacheService proxyCacheService;
+	private ProxyTempCacheService proxyTempCacheService;
 	
 	@Override
-	public void process(ResultItems resultItems, Task task) {
+	public  void  process(ResultItems resultItems, Task task) {
 		// TODO Auto-generated method stub
 		@SuppressWarnings("unchecked")
 		List<Map<String, String>> proxyList = (List<Map<String, String>>)resultItems.get("proxyList");
-		Iterator<Map<String, String>> iterator = proxyList.iterator();
-		while (iterator.hasNext()) {
-			Map<String, String> map = (Map<String, String>) iterator.next();
+		for (Map<String, String> map : proxyList) {
 			String ip = map.get("ip");
 			int port = Integer.valueOf(map.get("port"));
 			int verificationTime = formatVerificationTime(map.get("verificationTime"));
 			double rate = formatRate(map.get("rate"));
 			Proxy proxy = new Proxy(ip, port, verificationTime, rate);
-			System.out.println(proxy);
-			proxyCacheService.addCache(new Cache<Proxy>(proxy));
+			Cache<Proxy> cache = new Cache<Proxy>(proxy);
+			proxyTempCacheService.addCache(cache);
+			proxyTempCacheService.addCache(cache);
+
+			System.out.println(proxyTempCacheService.size());
+			System.out.println(proxyTempCacheService.contains(cache)) ;
+				System.err.println("..............................................");
+				proxyTempCacheService.print();
+				System.err.println("..............................................");
+
+
+
 		}
 	}
 	

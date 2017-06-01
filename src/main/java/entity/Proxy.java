@@ -14,6 +14,8 @@ public class Proxy {
 	private int lastVerification;
 	
 	private double rate;
+	
+	private boolean checked;
 
 	public Proxy() {
 		// TODO Auto-generated constructor stub
@@ -63,5 +65,24 @@ public class Proxy {
 
 	public void setRate(double rate) {
 		this.rate = rate;
+	}
+
+	public boolean isChecked() {
+		return checked;
+	}
+
+	public void setChecked(boolean checked) {
+		this.checked = checked;
+	}
+	
+	@Override
+	public boolean equals(Object object){
+		boolean result = false;
+		if (object != null && object instanceof Proxy) {
+			if (((Proxy)object).getIp() == this.getIp() && ((Proxy)object).getPort() == this.getPort()){
+				result = true;
+			}
+		}
+		return result;
 	}
 }

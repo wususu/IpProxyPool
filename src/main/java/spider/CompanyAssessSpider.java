@@ -32,6 +32,6 @@ public class CompanyAssessSpider implements PageProcessor{
 	@Override
 	public Site getSite() {
 		// TODO Auto-generated method stub
-		return site.setHttpProxy(new HttpHost("221.221.221.222", 9999));
+		return site;
 	}
 }

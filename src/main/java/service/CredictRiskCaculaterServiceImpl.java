@@ -58,6 +58,7 @@ public class CredictRiskCaculaterServiceImpl implements CredictRiskCaculaterServ
 	@Override
 	public  Double caculate() {
 		Double financialRisk = financialCaculater(zCaculater());
+		credictRisk.getFinance().setFinanceRisk(financialRisk);
 		Double netWorkRisk = credictRisk.getCompany().getCompanyAssess();
 		Double legalEvaluation = (double)0;
 		Double risk = financialRisk * CredictRisk.FinancialRiskWeight + netWorkRisk * CredictRisk.NetWorkRiskWeight + legalEvaluation * CredictRisk.LegalEvaluationRiskWeight;

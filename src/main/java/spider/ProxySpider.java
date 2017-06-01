@@ -77,12 +77,12 @@ public class ProxySpider implements PageProcessor{
 
 	public  void main() {
 		List<String> urls = new ArrayList<String>();
-		for(int i=1; i<=10; i++){
+		for(int i=1; i<=1; i++){
 			String url = originUrl + i + "/";
 			urls.add(url);
 		}
 		Spider spider = addUrls(Spider.create(new ProxySpider()),urls);
-		spider.addPipeline(proxySpiderPipeLine).thread(4).start();
+		spider.addPipeline(proxySpiderPipeLine).start();
 	}
 
 }

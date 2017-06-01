@@ -38,8 +38,21 @@ public class Finance {
 	
 	private Double totalAssetsIncrease;
 	
+	private Double financeRisk;
+	
 	public Finance() {
 		// TODO Auto-generated constructor stub
+	}
+	
+	public Finance(Double inventoryTurnover, Double  netAssetsIncome,  Double netProfit, 
+			Double netProfitIncrease1, Double netProfitIncrease2, Double totalAssetsIncrease) {
+		// TODO Auto-generated constructor stub
+		this.inventoryTurnover = inventoryTurnover;
+		this.netAssetsIncome = netAssetsIncome;
+		this.netProfit = netProfit;
+		this.netProfitIncrease1 = netProfitIncrease1;
+		this.netProfitIncrease2 = netProfitIncrease2;
+		this.totalAssetsIncrease = totalAssetsIncrease;
 	}
 
 	public Double getInventoryTurnover() {
@@ -88,5 +101,13 @@ public class Finance {
 
 	public void setTotalAssetsIncrease(Double totalAssetsIncrease) {
 		this.totalAssetsIncrease = totalAssetsIncrease;
+	}
+
+	public Double getFinanceRisk() {
+		return financeRisk;
+	}
+
+	public void setFinanceRisk(Double financeRisk) {
+		this.financeRisk = financeRisk;
 	}
 }

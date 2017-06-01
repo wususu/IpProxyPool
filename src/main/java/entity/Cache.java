@@ -65,4 +65,14 @@ public class Cache<T> {
 	public void setId(int id) {
 		this.id = id;
 	}
+	
+	public boolean equals(Object object){
+		boolean result = false;
+		if (object instanceof Cache<?> && object != null) {
+			if (((Cache<?>)object).getValue().equals(this.getValue())){
+				result = true;
+			}
+		}
+		return result;
+	}
 }

@@ -58,7 +58,8 @@ public class IndexSpider {
 	
 	public void  runCompanySearchSpider(String companyName) {
 		setCompanySearchUrl(companyName);
-		Spider.create(companySearchSpider).addPipeline(searchPipeLine).addUrl(getCompanySearchUrl()).start();
+		System.out.println("spider start: " + getCompanySearchUrl() + companyName);
+		Spider.create(companySearchSpider).addPipeline(searchPipeLine).addUrl(getCompanySearchUrl()).run();
 	}
 	
 	public void runCompanyAssessSpider(String companyKey){

@@ -111,8 +111,9 @@ function caculate_button_click() {
 		var company_id = $(".company-id").attr("id");
 		console.log(company_id);
 		$.ajax({
-			url:"/project-entpRisk/test/caculate/"+company_id,
+			url:"/project-entpRisk/test/caculate/"+company_id + "?" +  Math.random(),
 			type: "post",
+			cache: false,
 			dataType: "json",
 			data:  finance,
 			success: function(data) {

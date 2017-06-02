@@ -1,10 +1,7 @@
 package controller;
 
-import java.lang.ProcessBuilder.Redirect;
-import java.util.Iterator;
 import java.util.List;
 
-import org.hibernate.annotations.Parent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -13,9 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import entity.Company;
-import junit.framework.Test;
 import service.CompanyService;
-import service.CompanyServiceImpl;
 import spider.IndexSpider;
 
 /**

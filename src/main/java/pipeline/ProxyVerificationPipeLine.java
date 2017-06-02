@@ -1,13 +1,11 @@
 package pipeline;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.stereotype.Component;
 
 import entity.Cache;
 import entity.Proxy;
 import service.ProxyCacheService;
-import service.ProxyTempCacheService;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;

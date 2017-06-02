@@ -1,6 +1,5 @@
 package controller;
 
-import java.text.Normalizer.Form;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -8,20 +7,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
 
-import entity.Cache;
 import entity.Company;
-import entity.CredictRisk;
 import entity.Finance;
 import entity.LegalEvaluation;
-import entity.Proxy;
-import junit.framework.Test;
 import service.CompanyService;
 import service.CredictRiskCaculaterService;
-import service.CredictRiskCaculaterServiceImpl;
 import service.ProxyCacheService;
 import service.ProxyTempCacheService;
 import spider.IndexSpider;
@@ -35,7 +27,7 @@ import spider.ProxyVerificationSpider;
  */
 @Controller
 @RequestMapping(value="/test")
-public class TestController {
+public class IndexController {
 	
 	@Autowired
 	ProxyTempCacheService proxyTempCacheService;
@@ -62,40 +54,8 @@ public class TestController {
 	
 	
 	@RequestMapping(value="/index")
-	public String Test(){
-//		proxySpider.main();
-//		System.out.println(proxyTempCacheService.size());
-//		try {
-//			Thread.sleep(15000);
-//		} catch (Exception e) {
-//			// TODO: handle exception
-//		}
-//		proxyTempCacheService.print();
-
-//		for(int i = 0; i < proxyTempCacheService.size(); i++){
-//			Cache<Proxy> cache = proxyTempCacheService.get(i);
-//			Proxy proxy = cache.getValue();
-//			ProxyVerificationSpider.main(proxy);
-//		}
-//		int count=0;
-//		for(int i = 0; i < proxyCacheService.size(); i++){
-//			Cache<Proxy> cache = proxyCacheService.get(i);
-//			Proxy proxy = cache.getValue();
-//			if (proxy.isChecked()) {
-//				count++;
-//				System.out.println("checked: " + proxy);
-//			}
-//		}
-//		System.out.println("can used "+ count);
-//		proxyCacheService.print();
+	public String credictRiskPage(){
 		return "CredictRisk";
-	}
-	
-	@RequestMapping(value="/bean")
-	@ResponseBody
-	public Object TTCCLayout(){
-		System.out.println(companyService);
-		return companyService.get(1);
 	}
 	
 	@RequestMapping(value="/spider/company/{name}")

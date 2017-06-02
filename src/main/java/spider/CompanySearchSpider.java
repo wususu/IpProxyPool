@@ -1,6 +1,5 @@
 package spider;
 
-import org.apache.http.HttpHost;
 import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.stereotype.Component;

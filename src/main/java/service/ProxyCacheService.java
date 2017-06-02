@@ -3,7 +3,6 @@ package service;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.jsoup.select.Evaluator.ContainsOwnText;
 import org.springframework.stereotype.Component;
 
 import entity.Cache;

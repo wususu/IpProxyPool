@@ -1,10 +1,7 @@
 package spider;
 
-import org.apache.http.HttpHost;
-import org.hibernate.engine.spi.SelfDirtinessTracker;
 import org.springframework.stereotype.Component;
 
-import javassist.expr.NewArray;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;
 import us.codecraft.webmagic.processor.PageProcessor;

@@ -65,6 +65,7 @@ public class IndexSpider {
 	public void runCompanyAssessSpider(String companyKey){
 		setCompanyAssessUrl(companyKey);
 		assessPipeLine.setCompanyKey(companyKey);
+		@SuppressWarnings("unused")
 		HttpHost hoString  = companyAssessSpider.getSite().getHttpProxy();
 		Spider.create(companyAssessSpider).addPipeline(assessPipeLine).addUrl(getCompanyAssessUrl()).start(); 
 	}

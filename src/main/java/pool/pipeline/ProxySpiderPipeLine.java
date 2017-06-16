@@ -1,4 +1,4 @@
-package pipeline;
+package pool.pipeline;
 
 import java.util.List;
 import java.util.Map;
@@ -6,9 +6,8 @@ import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import entity.Cache;
-import entity.Proxy;
-import service.ProxyTempCacheService;
+import pool.Proxy;
+import pool.manager.ProxyTempManager;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -21,12 +20,14 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 @Component
 public class ProxySpiderPipeLine implements Pipeline{
 
+	
 	@Autowired
-	private ProxyTempCacheService proxyTempCacheService;
+	ProxyTempManager proxyTempManager;
 	
 	@Override
 	public  void  process(ResultItems resultItems, Task task) {
 		// TODO Auto-generated method stub
+
 		@SuppressWarnings("unchecked")
 		List<Map<String, String>> proxyList = (List<Map<String, String>>)resultItems.get("proxyList");
 		for (Map<String, String> map : proxyList) {
@@ -35,20 +36,11 @@ public class ProxySpiderPipeLine implements Pipeline{
 			int verificationTime = formatVerificationTime(map.get("verificationTime"));
 			double rate = formatRate(map.get("rate"));
 			Proxy proxy = new Proxy(ip, port, verificationTime, rate);
-			Cache<Proxy> cache = new Cache<Proxy>(proxy);
-			proxyTempCacheService.addCache(cache);
-			proxyTempCacheService.addCache(cache);
-
-			System.out.println(proxyTempCacheService.size());
-			System.out.println(proxyTempCacheService.contains(cache)) ;
-				System.err.println("..............................................");
-				proxyTempCacheService.print();
-				System.err.println("..............................................");
-
-
-
+			// 代理进入临时队列
+			proxyTempManager.pushToTempList(proxy);
 		}
 	}
+	
 	
 	private Double formatRate(String rate){
 		return Double.valueOf(rate.replace("秒", " ").trim());

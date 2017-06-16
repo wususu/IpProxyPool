@@ -1,6 +1,12 @@
-package pool;
+package entity;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+import org.hibernate.annotations.GenericGenerator;
 
 /**
  *Proxy entity
@@ -8,17 +14,32 @@ import javax.persistence.Entity;
  * @author janke
  */
 @Entity
+@Table(name="proxy")
 public class Proxy {
 	
+	@Id
+	@GeneratedValue(generator = "increment")
+	@GenericGenerator(name="increment", strategy = "increment")
+	@Column(name = "id")
+	private int id;
+	
+	@Column(name="ip")
 	private String ip;
 	
+	@Column(name="port")
 	private int port;
 	
+	@Column(name="last_verification")
 	private int lastVerification;
 	
+	@Column(name="rate")
 	private double rate;
 	
+	@Column(name="checked")
 	private boolean checked;
+	
+	@Column(name="success_times")
+	private int successTimes = 0;
 
 	public Proxy() {
 		// TODO Auto-generated constructor stub
@@ -88,5 +109,13 @@ public class Proxy {
 			}
 		}
 		return result;
+	}
+
+	public int getSuccessTimes() {
+		return successTimes;
+	}
+
+	public void setSuccessTimes(int successTimes) {
+		this.successTimes = successTimes;
 	}
 }

@@ -5,7 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import pool.Proxy;
+import entity.Proxy;
+import pool.ProxyDao;
 import pool.ProxyPool;
 
 @Component
@@ -13,6 +14,9 @@ public class PoolManager {
 
 	@Autowired
 	private BaseManager<Proxy> baseProxyService;
+	
+	@Autowired
+	private ProxyDao proxyDao;
 	
 	private List<Proxy> proxyQueue = ProxyPool.ProxyCacheList;
 	
@@ -56,5 +60,11 @@ public class PoolManager {
 	
 	synchronized public int sizeFromList(){
 		return baseProxyService.size(proxyQueue);
+	}
+	
+	synchronized public void saveToDB(){
+		for (Proxy proxy : proxyQueue) {
+			proxyDao.save(proxy);
+		}
 	}
 }

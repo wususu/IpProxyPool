@@ -1,12 +1,12 @@
 package pool;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 
 import pool.manager.ProxyTempManager;
 import pool.spider.ProxyVerificationSpider;
 
-@Service
+@Component
 public class ProxyTempConsumer  implements Runnable{
 
 	@Autowired
@@ -17,8 +17,7 @@ public class ProxyTempConsumer  implements Runnable{
 	
 	@Override
 	public void run() {
-		int a=100;
-		while(a-->0){
+		while(true){
 			Proxy proxy = proxyTempManager.popFromTempList();
 			proxyVerificationSpider.verificate(proxy);
 		}

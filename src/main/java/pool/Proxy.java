@@ -1,10 +1,13 @@
 package pool;
 
+import javax.persistence.Entity;
+
 /**
  *Proxy entity
  *
  * @author janke
  */
+@Entity
 public class Proxy {
 	
 	private String ip;

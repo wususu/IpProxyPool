@@ -28,7 +28,7 @@ public class ProxySpider implements PageProcessor{
 	
 	private Site site = Site.me().setCharset("utf-8").addHeader("Referer","http://www.kuaidaili.com/proxylist/").setUserAgent("Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36");
 
-	private static final String  ORIGIN_URL = "http://www.kuaidaili.com/proxylist/";
+	private static final String  ORIGIN_URL = "http://www.kuaidaili.com/free/inha/";
 
 	private Map<String, String> intoMap(String ip, String port, String verificationTime, String rate){
 		Map<String, String> proxyMap = new HashMap<String, String>();
@@ -62,7 +62,6 @@ public class ProxySpider implements PageProcessor{
 	public Spider addUrls(Spider spider, List<String> urls){
 		Spider temp = spider;
 		for (String url : urls) {
-			System.out.println(url);
 			spider = temp.addUrl(url);
 			temp = spider;
 		}
@@ -77,11 +76,11 @@ public class ProxySpider implements PageProcessor{
 
 	public  void main() {
 		List<String> urls = new ArrayList<String>();
-		for(int i=1; i<=10; i++){
+		for(int i=1; i<=3; i++){
 			String url = ORIGIN_URL + i + "/";
 			urls.add(url);
 		}
 		Spider spider = addUrls(Spider.create(new ProxySpider()),urls);
-		spider.addPipeline(proxySpiderPipeLine).start();
+		spider.addPipeline(proxySpiderPipeLine).thread(2).start();
 	}
 }

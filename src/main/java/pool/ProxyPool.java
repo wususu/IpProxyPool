@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 import org.springframework.stereotype.Component;
 
+import entity.Proxy;
+
 /**
  * 代理缓存池
  * @author janke

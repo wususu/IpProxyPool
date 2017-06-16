@@ -3,7 +3,7 @@ package pool.pipeline;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import pool.Proxy;
+import entity.Proxy;
 import pool.manager.PoolManager;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;

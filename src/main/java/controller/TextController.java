@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import pool.ProxyPool;
 import pool.ProxyTempConsumer;
+import pool.manager.PoolManager;
 import pool.spider.ProxySpider;
 
 @Controller
@@ -18,6 +19,8 @@ public class TextController {
 	@Autowired
 	ProxyTempConsumer proxyTempConsumer;
 	
+	@Autowired
+	PoolManager poolManger;
 
 	@RequestMapping(value="/proxyspider")
 	public void text(){
@@ -31,7 +34,11 @@ public class TextController {
 	@RequestMapping(value="/count")
 	public Object count(){
 		return ProxyPool.ProxyCacheList;
-
+		
 	}
 	
+	@RequestMapping(value="/proxysave")
+	public void save(){
+		poolManger.saveToDB();
+	}
 }

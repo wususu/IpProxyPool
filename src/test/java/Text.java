@@ -1,4 +1,4 @@
-import pool.Proxy;
+import entity.Proxy;
 import pool.ProxyPool;
 
 class Text{

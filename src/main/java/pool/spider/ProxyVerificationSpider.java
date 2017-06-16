@@ -4,7 +4,7 @@ import org.apache.http.HttpHost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import pool.Proxy;
+import entity.Proxy;
 import pool.pipeline.ProxyVerificationPipeLine;
 import us.codecraft.webmagic.Page;
 import us.codecraft.webmagic.Site;

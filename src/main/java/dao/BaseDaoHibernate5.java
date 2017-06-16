@@ -5,7 +5,9 @@ import java.io.Serializable;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class BaseDaoHibernate5<T> implements BaseDao<T>{
 	
 	@Autowired
@@ -32,6 +34,4 @@ public class BaseDaoHibernate5<T> implements BaseDao<T>{
 	public void delete(T entity) {
 		sessionFactory.getCurrentSession().delete(entity);
 	}
-	
-	
 }

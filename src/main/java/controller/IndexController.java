@@ -12,13 +12,11 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import entity.Company;
 import entity.Finance;
 import entity.LegalEvaluation;
+import pool.spider.ProxySpider;
+import pool.spider.ProxyVerificationSpider;
 import service.CompanyService;
 import service.CredictRiskCaculaterService;
-import service.ProxyCacheService;
-import service.ProxyTempCacheService;
 import spider.IndexSpider;
-import spider.ProxySpider;
-import spider.ProxyVerificationSpider;
 
 /**
  * the controller for code test
@@ -29,11 +27,6 @@ import spider.ProxyVerificationSpider;
 @RequestMapping(value="/test")
 public class IndexController {
 	
-	@Autowired
-	ProxyTempCacheService proxyTempCacheService;
-	
-	@Autowired
-	ProxyCacheService proxyCacheService;
 	
 	@Autowired
 	IndexSpider IndexSpider;
@@ -55,6 +48,7 @@ public class IndexController {
 	
 	@RequestMapping(value="/index")
 	public String credictRiskPage(){
+		System.out.println(proxySpider);
 		return "CredictRisk";
 	}
 	
@@ -74,7 +68,7 @@ public class IndexController {
 			IndexSpider.runCompanyAssessSpider(key.toString());
 		}
 		return null;
-	}
+	} 
 	
 	@RequestMapping(value="/caculate/{id}")
 	@ResponseBody

@@ -1,11 +1,10 @@
-package pipeline;
+package pool.pipeline;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import entity.Cache;
-import entity.Proxy;
-import service.ProxyCacheService;
+import pool.Proxy;
+import pool.manager.PoolManager;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
 import us.codecraft.webmagic.pipeline.Pipeline;
@@ -14,14 +13,12 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 public class ProxyVerificationPipeLine implements Pipeline{
 
 	@Autowired
-	ProxyCacheService proxyCacheService;
+	PoolManager proxyManager;
 	
 	@Override
 	public void process(ResultItems resultItems, Task task) {
 		// TODO Auto-generated method stub
 		Proxy proxy = resultItems.get("proxy");
-		proxy.setChecked(true);
-		proxyCacheService.add(new Cache<Proxy>(proxy));
+		proxyManager.pushToList(proxy);
 	}
-
 }

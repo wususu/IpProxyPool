@@ -1,4 +1,4 @@
-package entity;
+package pool;
 
 /**
  *Proxy entity
@@ -30,9 +30,10 @@ public class Proxy {
 	
 	public String toString() {
 		return " ip: " + ip +
-				"\nport: " + port + 
-				"\nrate: " + rate + 
-				"\nvertificationTime: " + lastVerification;
+				"    port: " + port + 
+				"    rate: " + rate + 
+				"    vertificationTime: " + lastVerification +
+				"    checked: " + checked;
 	}
 	
 	public String getIp() {
@@ -43,11 +44,11 @@ public class Proxy {
 		this.ip = ip;
 	}
 
-	public Integer getPort() {
+	public int getPort() {
 		return port;
 	}
 
-	public void setPort(Integer port) {
+	public void setPort(int port) {
 		this.port = port;
 	}
 
@@ -78,8 +79,8 @@ public class Proxy {
 	@Override
 	public boolean equals(Object object){
 		boolean result = false;
-		if (object != null && object instanceof Proxy) {
-			if (((Proxy)object).getIp() == this.getIp() && ((Proxy)object).getPort() == this.getPort()){
+		if (object != null && object.getClass() == Proxy.class) {
+			if (((Proxy)object).getIp().equals(this.getIp()) && ((Proxy)object).getPort() == this.getPort()){
 				result = true;
 			}
 		}

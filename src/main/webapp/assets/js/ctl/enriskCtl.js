@@ -62,7 +62,7 @@ $(document).ready(function () {
             return;
         }
 
-        $.getJSON(baseUrl+'company/search1/'+query,function (datas) {
+        $.getJSON(baseUrl+'company/search/'+query,function (datas) {
             console.log(datas);
             addSearchItems(datas,true);
         });

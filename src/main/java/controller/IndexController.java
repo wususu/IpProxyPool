@@ -49,7 +49,7 @@ public class IndexController {
 	@RequestMapping(value="/index")
 	public String credictRiskPage(){
 		System.out.println(proxySpider);
-		return "CredictRisk";
+		return "CredictRisk2";
 	}
 	
 	@RequestMapping(value="/spider/company/{name}")

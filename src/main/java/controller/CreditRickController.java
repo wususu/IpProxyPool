@@ -2,11 +2,13 @@ package controller;
 
 import java.util.List;
 
+import com.alibaba.fastjson.JSON;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import entity.Company;
@@ -43,11 +45,11 @@ public class CreditRickController {
 			}else {
 				indexSpider.runCompanySearchSpider(name);
 				return "again";
-				}
 			}
+		}
 		return null;
 	}
-	
+
 	@RequestMapping(value="/assess/{key}")
 	@ResponseBody
 	public Object testCompanyAssessSpider(@PathVariable Integer key){

@@ -1,0 +1,32 @@
+.perc{
+    font-size: 68px;
+
+    font-family: Avenir Next, Microsoft YaHei, serif;
+    margin-top: 0;
+}
+body {
+    margin: 0px;
+    padding: 0px;
+}
+#items li:hover {
+    background-color: #E8E8E8;
+}
+#netValue {
+    margin-top: 0;
+    margin-bottom: 0;
+}
+#assess{
+    margin-top:2px;
+}
+#companyValue{
+    margin-bottom: 0;
+}
+#knob{
+    margin-top:10px;
+}
+#tips{
+    padding-top: 5px;
+    padding-bottom: 5px;
+    font-weight: 600;
+
+}

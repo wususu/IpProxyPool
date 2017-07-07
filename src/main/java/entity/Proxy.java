@@ -1,5 +1,7 @@
 package entity;
 
+import java.util.Date;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -29,8 +31,8 @@ public class Proxy {
 	@Column(name="port")
 	private int port;
 	
-	@Column(name="last_verification")
-	private int lastVerification;
+	@Column(name="last_verificate_time")
+	private Date lastVerificateTime;
 	
 	@Column(name="rate")
 	private double rate;
@@ -45,10 +47,15 @@ public class Proxy {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Proxy(String ip, int port, int lastVerification, double rate) {
+	public Proxy(String ip, int port){
 		this.ip = ip;
 		this.port = port;
-		this.lastVerification = lastVerification;
+	}
+	
+	public Proxy(String ip, int port, Date lastVerificateTime, double rate) {
+		this.ip = ip;
+		this.port = port;
+		this.lastVerificateTime = lastVerificateTime;
 		this.rate = rate;
 	}
 	
@@ -56,7 +63,7 @@ public class Proxy {
 		return " ip: " + ip +
 				"    port: " + port + 
 				"    rate: " + rate + 
-				"    vertificationTime: " + lastVerification +
+				"    vertificationTime: " + lastVerificateTime +
 				"    checked: " + checked;
 	}
 	
@@ -76,12 +83,12 @@ public class Proxy {
 		this.port = port;
 	}
 
-	public int getLastVerification() {
-		return lastVerification;
+	public Date getLastVerificateTime() {
+		return lastVerificateTime;
 	}
 
-	public void setLastVerification(int lastVerification) {
-		this.lastVerification = lastVerification;
+	public void setLastVerificateTime(Date lastVerificateTime) {
+		this.lastVerificateTime = lastVerificateTime;
 	}
 
 	public double getRate() {

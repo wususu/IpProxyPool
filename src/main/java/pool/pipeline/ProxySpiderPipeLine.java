@@ -3,8 +3,6 @@ package pool.pipeline;
 import java.util.List;
 import java.util.Map;
 
-import javax.persistence.Id;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -22,7 +20,6 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 @Component
 public class ProxySpiderPipeLine implements Pipeline{
 
-	
 	@Autowired
 	ProxyTempManager proxyTempManager;
 	
@@ -35,10 +32,10 @@ public class ProxySpiderPipeLine implements Pipeline{
 		for (Map<String, String> map : proxyList) {
 			String ip = map.get("ip");
 			int port = Integer.valueOf(map.get("port"));
-			int verificationTime = formatVerificationTime(map.get("verificationTime"));
-			double rate = formatRate(map.get("rate"));
+			
 
-			Proxy proxy = new Proxy(ip, port, verificationTime, rate);
+			Proxy proxy = new Proxy(ip, port);
+			System.out.println(proxy);
 			// 代理进入临时队列
 			proxyTempManager.pushToTempList(proxy);
 		}

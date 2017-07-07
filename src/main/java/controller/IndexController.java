@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import entity.Company;
 import entity.Finance;
 import entity.LegalEvaluation;
-import pool.spider.ProxySpider;
+import pool.spider.KuaiProxySpider;
 import pool.spider.ProxyVerificationSpider;
 import service.CompanyService;
 import service.CredictRiskCaculaterService;
@@ -32,7 +32,7 @@ public class IndexController {
 	IndexSpider IndexSpider;
 	
 	@Autowired
-	ProxySpider proxySpider;
+	KuaiProxySpider proxySpider;
 	
 	@Autowired
 	ProxyVerificationSpider proxyVerificationSpider;

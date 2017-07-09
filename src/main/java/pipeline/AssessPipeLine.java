@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import entity.Company;
+import service.CompanyAssessResultService;
 import service.CompanyService;
 import us.codecraft.webmagic.ResultItems;
 import us.codecraft.webmagic.Task;
@@ -20,8 +21,11 @@ public class AssessPipeLine implements Pipeline{
 	@Autowired
 	private CompanyService companyService;
 	
+	@Autowired
+	private CompanyAssessResultService companyAssessResultService;
+	
 	private String companyKey;
-
+    
 	public void setCompanyKey(String companyKey){
 		this.companyKey = companyKey;
 	}
@@ -42,12 +46,11 @@ public class AssessPipeLine implements Pipeline{
 	
 	public void process(ResultItems resultItems, Task task){
 		String percentage = resultItems.get("percentage");
-		System.out.println(percentage);
 		Company company = companyService.get(companyKey);
 		if (company != null && !percentage.isEmpty()) {
 			Double percentageDouble = getPercentageDouble(percentage);
 			company.setCompanyAssess(percentageDouble);
-			companyService.update(company);
+			companyAssessResultService.addResult(company);
 		}
 	}
 }

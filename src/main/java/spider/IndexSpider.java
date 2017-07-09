@@ -3,8 +3,10 @@ package spider;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import entity.Proxy;
 import pipeline.AssessPipeLine;
 import pipeline.SearchPipeLine;
+import pool.manager.ProxyManager;
 import us.codecraft.webmagic.Spider;
 
 /**
@@ -14,6 +16,9 @@ import us.codecraft.webmagic.Spider;
  */
 @Component
 public class IndexSpider {
+	
+	@Autowired
+	private ProxyManager proxyManager;
 
 	@Autowired
 	private CompanySearchSpider companySearchSpider;
@@ -27,7 +32,7 @@ public class IndexSpider {
 	@Autowired
 	private AssessPipeLine assessPipeLine;
 	
-	private static final String companyAssessOriginUrlHead = "http://www.kanzhun.com/gso";
+	private static final String companyAssessOriginUrlHead = "http://www.kanzhun.com/gsr";
 	
 	private static final String companySearchOriginUrlTail = "&type=2";
 	
@@ -57,13 +62,29 @@ public class IndexSpider {
 	
 	public void  runCompanySearchSpider(String companyName) {
 		setCompanySearchUrl(companyName);
+		if (proxyManager.sizeFromList() > 0) {
+			Proxy proxy =  proxyManager.popFromList();
+			if (!proxy.equals(null)) {
+				companyAssessSpider.setProxy(proxy);
+				System.out.println(proxy);
+			}
+		}
 		System.out.println("spider start: " + getCompanySearchUrl() + companyName);
-		Spider.create(companySearchSpider).addPipeline(searchPipeLine).addUrl(getCompanySearchUrl()).run();
+		Spider.create(companySearchSpider).addPipeline(searchPipeLine).addUrl(getCompanySearchUrl()).start();
 	}
 	
 	public void runCompanyAssessSpider(String companyKey){
 		setCompanyAssessUrl(companyKey);
 		assessPipeLine.setCompanyKey(companyKey);
+		if (proxyManager.sizeFromList() > 0) {
+			Proxy proxy =  proxyManager.popFromList();
+			if (!proxy.equals(null)) {
+				companyAssessSpider.setProxy(proxy);
+				System.out.println(proxy);
+			}
+		}
+		System.out.println("spider start: " + getCompanyAssessUrl() + companyKey);
+
 		Spider.create(companyAssessSpider).addPipeline(assessPipeLine).addUrl(getCompanyAssessUrl()).start(); 
 	}
 }

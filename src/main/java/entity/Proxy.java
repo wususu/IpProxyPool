@@ -32,7 +32,7 @@ public class Proxy {
 	private int port;
 	
 	@Column(name="last_verificate_time")
-	private Date lastVerificateTime;
+	private String lastVerificateTime;
 	
 	@Column(name="rate")
 	private double rate;
@@ -52,7 +52,7 @@ public class Proxy {
 		this.port = port;
 	}
 	
-	public Proxy(String ip, int port, Date lastVerificateTime, double rate) {
+	public Proxy(String ip, int port, String lastVerificateTime, double rate) {
 		this.ip = ip;
 		this.port = port;
 		this.lastVerificateTime = lastVerificateTime;
@@ -64,7 +64,7 @@ public class Proxy {
 				"    port: " + port + 
 				"    rate: " + rate + 
 				"    vertificationTime: " + lastVerificateTime +
-				"    checked: " + checked;
+				"    successTimes: " + successTimes;
 	}
 	
 	public String getIp() {
@@ -83,11 +83,11 @@ public class Proxy {
 		this.port = port;
 	}
 
-	public Date getLastVerificateTime() {
+	public String getLastVerificateTime() {
 		return lastVerificateTime;
 	}
 
-	public void setLastVerificateTime(Date lastVerificateTime) {
+	public void setLastVerificateTime(String lastVerificateTime) {
 		this.lastVerificateTime = lastVerificateTime;
 	}
 
@@ -105,6 +105,10 @@ public class Proxy {
 
 	public void setChecked(boolean checked) {
 		this.checked = checked;
+	}
+	
+	public int adcSuccsessTimes(){
+		return ++this.successTimes;
 	}
 	
 	@Override

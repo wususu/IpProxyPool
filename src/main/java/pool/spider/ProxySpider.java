@@ -6,18 +6,21 @@ import java.util.Map;
 
 import us.codecraft.webmagic.Spider;
 
-public abstract class ProxySpider {
+public abstract class ProxySpider implements Spiders{
 	
-	abstract void main();
+	@Override
+	public abstract void start();
 	
-	protected Map<String, String> intoMap(String ip, String port){
+	@Override
+	public Map<String, String> intoMap(String ip, String port){
 		Map<String, String> proxyMap = new HashMap<String, String>();
 		proxyMap.put("ip", ip);
 		proxyMap.put("port", port);
 		return proxyMap;
 	}
 	
-	protected Spider addUrls(Spider spider, List<String> urls){
+	@Override
+	public Spider addUrls(Spider spider, List<String> urls){
 		Spider temp = spider;
 		for (String url : urls) {
 			spider = temp.addUrl(url);

@@ -20,7 +20,7 @@ import us.codecraft.webmagic.selector.Selectable;
  * @author janke
  */
 @Component
-public class KuaiProxySpider extends ProxySpider implements PageProcessor{
+public class KuaiProxySpider extends ProxySpider implements Spiders{
 
 	@Autowired
 	private ProxySpiderPipeLine proxySpiderPipeLine;
@@ -54,7 +54,7 @@ public class KuaiProxySpider extends ProxySpider implements PageProcessor{
 	}
 
 	@Override
-	public  void main() {
+	public  void start() {
 		List<String> urls = new ArrayList<String>();
 		for(int i=1; i<=3; i++){
 			String url = ORIGIN_URL + i + "/";

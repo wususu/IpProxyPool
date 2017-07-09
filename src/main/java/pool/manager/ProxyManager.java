@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component;
 import entity.Proxy;
 import pool.ProxyDao;
 import pool.ProxyPool;
+import tools.DateFormater;
 
 @Component
-public class PoolManager {
+public class ProxyManager {
 
 	@Autowired
 	private BaseManager<Proxy> baseProxyService;
@@ -20,6 +21,11 @@ public class PoolManager {
 	
 	private List<Proxy> proxyQueue = ProxyPool.ProxyCacheList;
 	
+	/**
+	 * 代理压栈
+	 * @param proxy
+	 * @return boolean
+	 */
 	synchronized public boolean pushToList(Proxy proxy){
 		while(sizeFromList() > ProxyPool.PROXY_MAX_SIZE){
 			System.out.println("插入最终队列等待");
@@ -35,6 +41,10 @@ public class PoolManager {
 		return baseProxyService.put(proxy, proxyQueue);
 	}
 	
+	/**
+	 * 代理出栈
+	 * @return Proxy
+	 */
 	synchronized public Proxy popFromList(){
 		while(sizeFromList() <= 0){
 			System.out.println("取出等待");
@@ -66,5 +76,11 @@ public class PoolManager {
 		for (Proxy proxy : proxyQueue) {
 			proxyDao.save(proxy);
 		}
+	}
+	
+	public void successUpdate(Proxy proxy){
+		proxy.setLastVerificateTime(DateFormater.getTime());
+		proxy.adcSuccsessTimes();
+		pushToList(proxy);
 	}
 }

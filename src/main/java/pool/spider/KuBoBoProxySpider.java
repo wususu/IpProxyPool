@@ -18,7 +18,7 @@ import us.codecraft.webmagic.selector.Html;
 import us.codecraft.webmagic.selector.Selectable;
 
 @Component
-public class KuBoBoProxySpider extends ProxySpider implements PageProcessor{
+public class KuBoBoProxySpider extends ProxySpider implements Spiders{
 
 	@Autowired
 	private ProxySpiderPipeLine proxySpiderPipeLine;
@@ -66,7 +66,7 @@ public class KuBoBoProxySpider extends ProxySpider implements PageProcessor{
 	}
 
 	@Override
-	public void main() {
+	public void start() {
 		// TODO Auto-generated method stub
 		List<String> urlList = new ArrayList<>();
 		for(int i=1; i<=10; i++){

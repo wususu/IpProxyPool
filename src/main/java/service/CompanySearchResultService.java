@@ -9,12 +9,19 @@ import org.springframework.stereotype.Component;
 import entity.Company;
 import spider.IndexSpider;
 
+/**
+ * 封装公司搜索功能
+ * @author janke
+ *
+ */
 @Component
 public class CompanySearchResultService implements Callable<List<Company>>{
 
 	 private  List<Company> companySearchResult;
 	
 	 private String companyName;
+	 
+	 private Boolean flag = false;
 	 
 	 @Autowired
 	 private IndexSpider indexSpider;
@@ -24,6 +31,7 @@ public class CompanySearchResultService implements Callable<List<Company>>{
 	 }
 	 
 	 synchronized public void addResult(List<Company> companyList){
+		 flag = true;
 		 companySearchResult = companyList;
 	 }
 	 
@@ -32,18 +40,24 @@ public class CompanySearchResultService implements Callable<List<Company>>{
 		// TODO Auto-generated method stub
 		companySearchResult = null;
 		while(companySearchResult == null && !companyName.isEmpty()){
-			indexSpider.runCompanySearchSpider(companyName);
+			synchronized (flag) {
+				if (flag == false) {
+					indexSpider.runCompanySearchSpider(companyName);
+				}
+			}
 			try {
-				Thread.sleep(2000);
+				Thread.sleep(2200);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (companySearchResult != null) {
-				return companySearchResult;
+			synchronized (flag) {
+				if (flag == true) {
+					flag = false;
+					return companySearchResult;
+				}
 			}
 		}
 		return null;
 	}
-
 }

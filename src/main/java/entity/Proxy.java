@@ -1,12 +1,11 @@
 package entity;
 
-import java.util.Date;
-
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.UniqueConstraint;
 
 import org.hibernate.annotations.GenericGenerator;
 
@@ -16,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
  * @author janke
  */
 @Entity
-@Table(name="proxy")
+@Table(name="proxy", uniqueConstraints = {@UniqueConstraint(columnNames={"ip", "port"})})
 public class Proxy {
 	
 	@Id
@@ -31,11 +30,8 @@ public class Proxy {
 	@Column(name="port")
 	private int port;
 	
-	@Column(name="last_verificate_time")
+	@Column(name="last_verificate_times")
 	private String lastVerificateTime;
-	
-	@Column(name="rate")
-	private double rate;
 	
 	@Column(name="checked")
 	private boolean checked;
@@ -52,17 +48,15 @@ public class Proxy {
 		this.port = port;
 	}
 	
-	public Proxy(String ip, int port, String lastVerificateTime, double rate) {
+	public Proxy(String ip, int port, String lastVerificateTime) {
 		this.ip = ip;
 		this.port = port;
 		this.lastVerificateTime = lastVerificateTime;
-		this.rate = rate;
 	}
 	
 	public String toString() {
 		return " ip: " + ip +
 				"    port: " + port + 
-				"    rate: " + rate + 
 				"    vertificationTime: " + lastVerificateTime +
 				"    successTimes: " + successTimes;
 	}
@@ -89,14 +83,6 @@ public class Proxy {
 
 	public void setLastVerificateTime(String lastVerificateTime) {
 		this.lastVerificateTime = lastVerificateTime;
-	}
-
-	public double getRate() {
-		return rate;
-	}
-
-	public void setRate(double rate) {
-		this.rate = rate;
 	}
 
 	public boolean isChecked() {

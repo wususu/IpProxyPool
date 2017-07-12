@@ -34,7 +34,7 @@ public class Company implements Serializable{
 	private String companyKey;
 	
 	@Column(name="company_assess")
-	private Double companyAccess;
+	private Double companyAssess;
 	
 	public Company(){
 		
@@ -70,11 +70,11 @@ public class Company implements Serializable{
 	}
 	
 	public void setCompanyAssess(Double companyAssess) {
-		this.companyAccess = companyAssess;
+		this.companyAssess = companyAssess;
 	}
 	
 	public Double getCompanyAssess() {
-		return companyAccess;
+		return companyAssess;
 	}
 	
 }

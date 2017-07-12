@@ -64,12 +64,12 @@ public class IndexSpider {
 		setCompanySearchUrl(companyName);
 		if (proxyManager.sizeFromList() > 0) {
 			Proxy proxy =  proxyManager.popFromList();
-			if (!proxy.equals(null)) {
+			if (proxy != null) {
 				companyAssessSpider.setProxy(proxy);
-				System.out.println(proxy);
+				System.out.println("使用代理："+proxy);
 			}
 		}
-		System.out.println("spider start: " + getCompanySearchUrl() + companyName);
+//		System.out.println("spider start: " + getCompanySearchUrl());
 		Spider.create(companySearchSpider).addPipeline(searchPipeLine).addUrl(getCompanySearchUrl()).start();
 	}
 	
@@ -78,12 +78,12 @@ public class IndexSpider {
 		assessPipeLine.setCompanyKey(companyKey);
 		if (proxyManager.sizeFromList() > 0) {
 			Proxy proxy =  proxyManager.popFromList();
-			if (!proxy.equals(null)) {
+			if (proxy != null) {
 				companyAssessSpider.setProxy(proxy);
-				System.out.println(proxy);
+				System.out.println("使用代理："+proxy);
 			}
 		}
-		System.out.println("spider start: " + getCompanyAssessUrl() + companyKey);
+//		System.out.println("spider start: " + getCompanyAssessUrl() + companyKey);
 
 		Spider.create(companyAssessSpider).addPipeline(assessPipeLine).addUrl(getCompanyAssessUrl()).start(); 
 	}

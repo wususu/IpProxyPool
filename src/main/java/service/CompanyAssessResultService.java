@@ -8,14 +8,17 @@ import org.springframework.stereotype.Component;
 import entity.Company;
 import spider.IndexSpider;
 
+/**
+ * 封装评价查询功能
+ * @author janke
+ *
+ */
 @Component
 public class CompanyAssessResultService implements Callable<Company>{
 
 	@Autowired
 	private IndexSpider indexSpider;
-	
-	public String aa = "adsd";
-	
+		
 	private Company companyAssessResult;
 	
 	private String companyKey;
@@ -24,8 +27,11 @@ public class CompanyAssessResultService implements Callable<Company>{
 		this.companyKey = companyKey;
 	}
 	
+	private Boolean flag = false;
+	
 	synchronized public void addResult(Company company){
 		if (!company.getCompanyAssess().equals(null)) {
+			flag = true;
 			this.companyAssessResult = company;
 		}
 	}
@@ -35,15 +41,22 @@ public class CompanyAssessResultService implements Callable<Company>{
 		// TODO Auto-generated method stub
 		companyAssessResult = null;
 		while(companyAssessResult == null && companyKey != null){
-			indexSpider.runCompanyAssessSpider(companyKey);
+			synchronized (flag) {
+				if (flag == false) {
+					indexSpider.runCompanyAssessSpider(companyKey);
+				}
+			}
 			try {
-				Thread.sleep(3000);
+				Thread.sleep(4000);
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-			if (companyAssessResult != null && companyAssessResult.getCompanyAssess() != null) {
-				return companyAssessResult;
+			synchronized (flag) {
+				if (flag== true) {
+					flag = false;
+					return companyAssessResult;
+				}
 			}
 		}
 		return null;

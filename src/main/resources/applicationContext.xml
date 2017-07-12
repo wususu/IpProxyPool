@@ -52,4 +52,6 @@
 	<context:component-scan base-package="entity" />
 	
 
+<!--      当Spring容器启动完成后执行下面的这个Bean -->  
+    <bean class="tools.InstantiationTracingProcessor"/>  
 </beans>

@@ -1,6 +1,7 @@
 package pipeline;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import entity.Company;
@@ -19,6 +20,7 @@ import us.codecraft.webmagic.pipeline.Pipeline;
 public class AssessPipeLine implements Pipeline{
 	
 	@Autowired
+	@Qualifier("companyServiceImpl")
 	private CompanyService companyService;
 	
 	@Autowired
@@ -49,7 +51,9 @@ public class AssessPipeLine implements Pipeline{
 		Company company = companyService.get(companyKey);
 		if (company != null && !percentage.isEmpty()) {
 			Double percentageDouble = getPercentageDouble(percentage);
+			System.out.println("result" + percentageDouble);
 			company.setCompanyAssess(percentageDouble);
+			companyService.update(company);
 			companyAssessResultService.addResult(company);
 		}
 	}

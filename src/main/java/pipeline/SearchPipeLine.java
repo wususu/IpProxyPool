@@ -44,12 +44,19 @@ public class SearchPipeLine implements Pipeline{
 				JSONObject object = (JSONObject) iterator.next();
 				Integer key = object.getInt("data");
 				String name = object.getString("value");
-				System.out.println(name + "  " +key);
 				if (name != null && key.toString() != null ) {
-					companyList.add(new Company(name, key.toString()));
+					Company company = new Company(name, key.toString());
+					companyList.add(company);
+					try{
+					companyService.add(company);
+					}catch (Exception e) {
+						// TODO: handle exception
+						continue;
+					}
 				}
 			}
 			try{
+				System.out.println("搜索结果: " + companyList);
 				companySearchResultService.addResult(companyList);
 			}catch (Exception e) {
 				// TODO: handle exception

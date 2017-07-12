@@ -144,6 +144,7 @@
                             <div id="companyRiskRate" class="row">
                                 <h3 id="netValue"><strong>公司网络评价系数</strong></h3>
                                 <small>越接近1网络评价系数越低</small>
+                        <div style="display:none"  id="assess-value"></div>
                                 <div id="knob" class="row">
                                     <input type="text" value="0" class="dial">
                                 </div>

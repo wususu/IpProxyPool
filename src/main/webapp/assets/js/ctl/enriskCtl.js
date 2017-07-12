@@ -4,6 +4,7 @@
 $(document).ready(function () {
     var searchInput=$('#search');
     var searchItems=$('#items');
+    var searchbutton = $('span.glyphicon-search')
     var inventoryTurnover=$('#inventoryTurnover');
     var netAssetsIncome = $('#netAssetsIncome');
     var netProfit= $('#netProfit');
@@ -16,6 +17,7 @@ $(document).ready(function () {
     var green='#70AA39';
     var baseUrl="/project-entpRisk/";
     var companyId;
+    var company;
     var tips=$('#tips');
     //在这里进行旋转框的初始化
     $('.dial').knob({
@@ -52,9 +54,11 @@ $(document).ready(function () {
     //对提示框初始化
     tips.hide();
     //对搜索框进行监听
-    searchInput.keyup(function (data) {
+    searchbutton.click(function (data) {
         var query=searchInput.val().trim(); //搜索框的内容
         if(query=="") return;
+        console.log(query);
+        console.log(searchItems.find('li')[0]);
         if(data.keyCode==13)
         {
             search(searchItems.find('li')[0]);
@@ -62,7 +66,7 @@ $(document).ready(function () {
             return;
         }
 
-        $.getJSON(baseUrl+'company/search/'+query,function (datas) {
+        $.getJSON(baseUrl+'credict/company/'+query,function (datas) {
             console.log(datas);
             addSearchItems(datas,true);
         });
@@ -116,23 +120,16 @@ $(document).ready(function () {
         var content=$(query).html();
         var assess=$(query).attr('companyAssess');
         var key=$(query).attr('companyKey');
-        companyId=$(query).attr('companyId');
         searchInput.val(content);
         showTips("公司网络评价正在计算中......")
-        $.get(baseUrl+'company/assess/'+key,function (data) {
-            if (data === 'again')
-            {
-                console.log("again");
-                setTimeout(function () {
-                    search(query);
-                },1000);
-            }
-            else
-            {
+        $.get(baseUrl+'credict/assess/'+key,function (data) {
                 data=eval(data);
                 changeDialVal(parseFloat(data.companyAssess));
+                $('#assess-value').empty();
+                $('#assess-value').html(data.companyAssess);
+                companyId= data.id;
+                company = data;
                 closeTips();
-            }
         })
     }
 
@@ -206,16 +203,17 @@ $(document).ready(function () {
        var npi2 = $("#netProfitIncrease2").val().trim();
        var tai = $("#totalAssetsIncrease").val().trim();
        var finance = {
-           inventoryTurnover: it,
-           netAssetsIncome: nai,
-           netProfit: np,
-           netProfitIncrease1: npi1,
-           netProfitIncrease2: npi2,
-           totalAssetsIncrease: tai,
+           "inventoryTurnover": it,
+           "netAssetsIncome": nai,
+           "netProfit": np,
+           "netProfitIncrease1": npi1,
+           "netProfitIncrease2": npi2,
+           "totalAssetsIncrease": tai,
        };
-       var company_id =companyId;
+       var assess_value = $('div#assess-value').html().trim();
+       console.log("价值: "+assess_value);
        $.ajax({
-           url:baseUrl+"test/caculate/"+company_id + "?" +  Math.random(),
+           url:baseUrl+"credict/caculate/"+ companyId +"?" +  Math.random(),
            type: "post",
            cache: false,
            dataType: "json",

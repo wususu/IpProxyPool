@@ -1,6 +1,10 @@
 package controller;
 
 
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -12,11 +16,10 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import entity.Company;
 import entity.Finance;
 import entity.LegalEvaluation;
-import pool.spider.KuaiProxySpider;
-import pool.spider.ProxyVerificationSpider;
+import service.CompanyAssessResultService;
+import service.CompanySearchResultService;
 import service.CompanyService;
 import service.CredictRiskCaculaterService;
-import spider.IndexSpider;
 
 /**
  * the controller for code test
@@ -24,18 +27,8 @@ import spider.IndexSpider;
  * @author janke
  */
 @Controller
-@RequestMapping(value="/test")
-public class IndexController {
-	
-	
-	@Autowired
-	IndexSpider IndexSpider;
-	
-	@Autowired
-	KuaiProxySpider proxySpider;
-	
-	@Autowired
-	ProxyVerificationSpider proxyVerificationSpider;
+@RequestMapping(value="credict")
+public class CredictRiskController {
 	
 	@Autowired
 	@Qualifier("companyServiceImpl")
@@ -45,39 +38,56 @@ public class IndexController {
 	@Qualifier("credictRiskCaculaterServiceImpl")
 	private CredictRiskCaculaterService credictRiskCaculaterService;
 	
+	@Autowired
+	CompanySearchResultService companySearchResultService;
 	
-	@RequestMapping(value="/index")
-	public String credictRiskPage(){
-		System.out.println(proxySpider);
+	@Autowired
+	CompanyAssessResultService companyAssessResultService;
+	
+	@RequestMapping(value="/view")
+	public String Index(){
 		return "CredictRisk2";
 	}
 	
-	@RequestMapping(value="/spider/company/{name}")
+	@RequestMapping(value="/company/{name}")
 	@ResponseBody
-	public Object testCompanySearchSprider(@PathVariable String name){
-		if (!name.isEmpty()) {
-			IndexSpider.runCompanySearchSpider(name);
+	public Object searchCompanys(@PathVariable String name){
+		ExecutorService exec = Executors.newCachedThreadPool();
+		companySearchResultService.setCompanyName(name);
+		try {
+			return exec.submit(companySearchResultService).get();
+		} catch (InterruptedException | ExecutionException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally{
+			exec.shutdown();
 		}
 		return null;
 	}
 	
-	@RequestMapping(value="/spider/access/{key}")
+	@RequestMapping(value="/assess/{companyKey}")
 	@ResponseBody
-	public Object testCompanyAssessSpider(@PathVariable Integer key){
-		if (key != null) {
-			IndexSpider.runCompanyAssessSpider(key.toString());
+	public Object searchCompanyAssess(@PathVariable String companyKey){
+		if (companyKey.isEmpty()) {
+			return null;
+		}
+		ExecutorService exec = Executors.newCachedThreadPool();
+		companyAssessResultService.setCompanyKey(companyKey);
+		try {
+			return exec.submit(companyAssessResultService).get();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}finally {
+			exec.shutdown();
 		}
 		return null;
 	} 
 	
 	@RequestMapping(value="/caculate/{id}")
 	@ResponseBody
-	public Object caculate(@ModelAttribute Finance finance, @PathVariable Integer id ){
-		System.out.println(id);
+	public Object caculate(@ModelAttribute Finance finance, @PathVariable Integer id){
 		Company company = companyService.get(id);
-		System.out.println(company.getCompanyName());
-		System.out.println(finance);
-		System.out.println(finance.getInventoryTurnover() + " " +finance.getNetProfit());
 		credictRiskCaculaterService.caculater(finance, company, new LegalEvaluation());
 		return credictRiskCaculaterService.caculate();
 	}

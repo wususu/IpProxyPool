@@ -1,16 +1,13 @@
 package pool.manager;
 
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import pool.ProxyProductor;
 import pool.ProxyTempConsumer;
-import pool.spider.KuBoBoProxySpider;
-import pool.spider.KuaiProxySpider;
-import pool.spider.ProxySpider;
-import pool.spider.Spiders;
-import pool.spider.XiciProxySpider;
 
 @Component
 public class PoolManager {
@@ -21,15 +18,34 @@ public class PoolManager {
 	@Autowired
 	private ProxyTempConsumer proxyTempConsumer;
 	
+	@Autowired
+	private ProxyManager proxyManager;
+	
 	public void proxySpiderStart(){
-		Thread proxySpiders = new Thread(proxyProductor);
-		proxySpiders.start();
+		 ExecutorService executorService = Executors.newCachedThreadPool();  
+		 try {
+			 executorService.execute(proxyProductor);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}finally {
+			executorService.shutdown();
+		}
 	}
 
 
 	public void verificateStart(){
-		Thread verificateProxy = new Thread(proxyTempConsumer);
-		verificateProxy.start();
+		 ExecutorService executorService = Executors.newCachedThreadPool();  
+		 try {
+			 executorService.execute(proxyTempConsumer);
+		} catch (Exception e) {
+			// TODO: handle exception
+			e.printStackTrace();
+		}
+	}
+	
+	public void saveToDataBase(){
+		proxyManager.saveToDB();
 	}
 	
 }

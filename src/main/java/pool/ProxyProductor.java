@@ -32,6 +32,7 @@ public class ProxyProductor implements Runnable{
 			kuBoBoProxySpider.start();
 			kuaiProxySpider.start();
 		}
+		runSignal = true;
 	}
 
 }

@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import javax.swing.JSpinner.DateEditor;
 
 public class DateFormater {
 	
@@ -20,9 +19,5 @@ public class DateFormater {
 	
 	public static Date StringToDate(String string) throws ParseException{
 		return formater.parse(string);
-	}
-
-	public static void main(String[] args) {
-		DateFormater bb = new DateFormater();
 	}
 }

@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import entity.Proxy;
-import pool.ProxyDao;
 import pool.ProxyPool;
+import pool.dao.ProxyDao;
+import pool.entity.Proxy;
 import tools.DateFormater;
 
 @Component
@@ -30,7 +30,7 @@ public class ProxyManager {
 	 */
 	synchronized public boolean pushToList(Proxy proxy){
 		while(sizeFromList() > ProxyPool.PROXY_MAX_SIZE){
-//			System.out.println("插入最终队列等待");
+			System.out.println("插入最终队列等待");
 			try{
 				super.wait();
 			}catch (InterruptedException e) {
@@ -39,7 +39,7 @@ public class ProxyManager {
 			}
 		}
 		super.notifyAll();
-//		System.out.println("插入最终队列: " + proxy);
+		System.out.println("插入最终队列: " + proxy);
 		return baseProxyService.put(proxy, proxyQueue);
 	}
 	
@@ -49,7 +49,7 @@ public class ProxyManager {
 	 */
 	synchronized public Proxy popFromList(){
 		while(sizeFromList() <= 0){
-//			System.out.println("取出等待");
+			System.out.println("取出等待");
 			try{
 				super.wait();
 			}catch (InterruptedException e) {
@@ -59,7 +59,7 @@ public class ProxyManager {
 		}
 		super.notify();
 		Proxy proxy = baseProxyService.get(proxyQueue);
-//		System.out.println("取出: " + proxy);
+		System.out.println("取出: " + proxy);
 		if (baseProxyService.remove(proxy, proxyQueue)) {
 			return proxy;
 		}

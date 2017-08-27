@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import entity.Proxy;
 import pool.ProxyPool;
+import pool.entity.Proxy;
 
 @Component
 public class ProxyTempManager {
@@ -18,7 +18,7 @@ public class ProxyTempManager {
 	
 	synchronized public boolean pushToTempList(Proxy proxy){
 		while(sizeFromTempList() > ProxyPool.PROXY_MAX_SIZE){
-//			System.out.println("插入等待");
+			System.out.println("插入等待");
 			try{
 				super.wait();
 			}catch (InterruptedException e) {
@@ -27,13 +27,13 @@ public class ProxyTempManager {
 			}
 		}
 		super.notifyAll();
-//		System.out.println("插入 :" +proxy);
+		System.out.println("插入 :" +proxy);
 		return baseProxyService.put(proxy, proxyQueue);
 	}
 	
 	synchronized public Proxy popFromTempList(){
 		while(sizeFromTempList() <= 0){
-//			System.err.println("取出等待");
+			System.err.println("取出等待");
 			try{
 				super.wait();
 			}catch (InterruptedException e) {
@@ -43,7 +43,7 @@ public class ProxyTempManager {
 		}
 		super.notifyAll();
 		Proxy proxy = baseProxyService.get(proxyQueue);
-//		System.out.println("取出 : "+proxy);
+		System.out.println("取出 : "+proxy);
 		if (baseProxyService.remove(proxy, proxyQueue)) {
 			return proxy;
 		}

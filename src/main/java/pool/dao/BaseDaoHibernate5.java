@@ -1,4 +1,4 @@
-package dao;
+package pool.dao;
 
 import java.io.Serializable;
 

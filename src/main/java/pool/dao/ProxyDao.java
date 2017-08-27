@@ -1,4 +1,4 @@
-package pool;
+package pool.dao;
 
 import java.io.Serializable;
 
@@ -6,8 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import dao.BaseDaoHibernate5;
-import entity.Proxy;
+import pool.entity.Proxy;
 
 @Transactional
 @Component
